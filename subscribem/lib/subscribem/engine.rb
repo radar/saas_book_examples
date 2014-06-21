@@ -1,4 +1,5 @@
 require "warden"
+require "dynamic_form"
 
 module Subscribem
   class Engine < ::Rails::Engine

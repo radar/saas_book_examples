@@ -1,6 +1,7 @@
 <h2>Sign Up</h2>
 
 <%= form_for(@account) do |account| %>
+  <%= account.error_messages %>
   <p>
     <%= account.label :name %><br>
     <%= account.text_field :name %>

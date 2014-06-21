@@ -3,6 +3,7 @@ PATH
   specs:
     subscribem (0.0.1)
       bcrypt (= 3.1.7)
+      dynamic_form (= 1.1.4)
       rails (~> 4.1.1)
       warden (= 1.2.3)
 
@@ -45,6 +46,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     diff-lcs (1.2.5)
+    dynamic_form (1.1.4)
     erubis (2.7.0)
     hike (1.2.3)
     i18n (0.6.9)

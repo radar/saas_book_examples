@@ -6,6 +6,11 @@
     <%= account.text_field :name %>
   </p>
 
+  <p>
+    <%= account.label :subdomain %><br>
+    <%= account.text_field :subdomain %>
+  </p>
+
   <%= account.fields_for :owner do |owner| %>
     <p>
       <%= owner.label :email %><br>

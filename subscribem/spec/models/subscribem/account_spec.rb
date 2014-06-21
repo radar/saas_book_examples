@@ -21,7 +21,5 @@ describe Subscribem::Account do
     account = Subscribem::Account.create_with_owner
     expect(account.valid?).to eq(false)
     expect(account.users.empty?).to eq(true)
-    account.should_not be_valid
-    account.users.should be_empty
   end
 end

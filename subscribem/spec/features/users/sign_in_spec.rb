@@ -38,5 +38,17 @@ feature "User sign in" do
       expect(page).to have_content("Invalid email or password.")
       expect(page.current_url).to eq(sign_in_url)
     end
+
+    scenario "cannot sign in if not a part of this subdomain" do
+      other_account = FactoryGirl.create(:account)
+      visit subscribem.root_url(:subdomain => account.subdomain)
+      expect(page.current_url).to eq(sign_in_url)
+      expect(page).to have_content("Please sign in.")
+      fill_in "Email", :with => other_account.owner.email
+      fill_in "Password", :with => "password"
+      click_button "Sign in"
+      expect(page).to have_content("Invalid email or password.")
+      expect(page.current_url).to eq(sign_in_url)
+    end
   end
 end

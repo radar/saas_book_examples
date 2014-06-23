@@ -1,0 +1,8 @@
+<% if admin? %>
+  <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+<% end %>
+
+<% @posts.each do |post| %>
+  <h2><%= link_to post.title, post %></h2>
+  <%= simple_format(post.text) %>
+<% end %>

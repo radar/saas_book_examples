@@ -1,0 +1,19 @@
+<div class='col-md-6'>
+  <h2>Sign in</h2>
+
+  <%= form_tag sign_in_path, class: 'form-horizontal' do %>
+    <p class='form-group'>
+      <%= label_tag :email %>
+      <%= text_field_tag :email, '', class: 'form-control' %>
+    </p>
+
+    <p class='form-group'>
+      <%= label_tag :password %>
+      <%= password_field_tag :password, '', class: 'form-control' %>
+    </p>
+
+    <p class='form-group'>
+      <%= submit_tag 'Sign in', class: 'btn btn-primary' %>
+    </p>
+  <% end %>
+</div>

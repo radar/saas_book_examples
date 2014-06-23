@@ -1,0 +1,13 @@
+@import "bootstrap";
+
+.flash {
+  @extend .alert;
+}
+
+.flash-success {
+  @extend .alert-success;
+}
+
+.flash-error {
+  @extend .alert-danger;
+}

@@ -1,3 +1,5 @@
+require "subscribem/testing_support/factories/user_factory"
+
 FactoryGirl.define do
   factory :account, :class => Subscribem::Account do
     sequence(:name) { |n| "Test Account ##{n}" }

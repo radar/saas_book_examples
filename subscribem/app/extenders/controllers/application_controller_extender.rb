@@ -1,6 +1,6 @@
 ::ApplicationController.class_eval do
   def current_account
-    @current_account ||= Subscribem::Account.find_by(subdomain: request.subdomain)
+    @current_account ||= env['X-Houser-Object']
   end
   helper_method :current_account
 

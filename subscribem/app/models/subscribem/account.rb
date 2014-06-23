@@ -25,9 +25,5 @@ module Subscribem
       end
       account
     end
-
-    def create_schema
-      Apartment::Database.create(subdomain)
-    end
   end
 end

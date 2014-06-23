@@ -7,11 +7,5 @@ FactoryGirl.define do
     after(:create) do |account|
       account.users << account.owner
     end
-
-    factory :account_with_schema do
-      after(:create) do |account|
-        account.create_schema
-      end
-    end
   end
 end

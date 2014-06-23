@@ -1,5 +1,5 @@
 class ThingsController < ApplicationController
   def index
-    @things = Thing.all
+    @things = Thing.scoped_to(current_account)
   end
 end

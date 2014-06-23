@@ -1,5 +1,5 @@
 <% if admin? %>
-  <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+  <%= link_to 'New Post', new_admin_post_path, class: 'btn btn-primary' %>
 <% end %>
 
 <% @posts.each do |post| %>

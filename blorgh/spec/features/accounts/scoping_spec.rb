@@ -13,16 +13,27 @@ feature "Account scoping" do
   end
 
   scenario "displays only account A's records" do
-    sign_in_as(:user => account_a.owner, :account => account_a)
     visit posts_url(:subdomain => account_a.subdomain) 
     expect(page).to have_content("Account A's Post")
     expect(page).to_not have_content("Account B's Post")
   end
 
   scenario "displays only account B's records" do
-    sign_in_as(:user => account_b.owner, :account => account_b)
     visit posts_url(:subdomain => account_b.subdomain) 
     expect(page).to have_content("Account B's Post")
     expect(page).to_not have_content("Account A's Post")
+  end
+
+  scenario "Account A's post is visible on Account A's subdomain" do
+    account_a_post = Post.scoped_to(account_a).first
+    visit post_url(account_a_post, :subdomain => account_a.subdomain)
+    expect(page).to have_content("Account A's Post")
+  end
+
+  scenario "Account A's post is invisible on Account B's subdomain" do
+    account_a_post = Post.scoped_to(account_a).first
+    expect do 
+      visit post_url(account_a_post, :subdomain => account_b.subdomain)
+    end.to raise_error(ActiveRecord::RecordNotFound)
   end
 end

@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "dynamic_form", "1.1.4"
   s.add_dependency "pg"
   s.add_dependency "houser", "1.0.2"
+  s.add_dependency "braintree", "2.35.0"
 
   s.add_development_dependency "rspec-rails", "3.0.1"
   s.add_development_dependency "capybara", "2.3.0"

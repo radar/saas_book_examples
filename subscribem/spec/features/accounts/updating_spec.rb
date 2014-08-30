@@ -156,6 +156,20 @@ feature "Accounts" do
         expect(page.current_url).to eq(root_url)
         expect(account.reload.plan).to eq(extreme_plan)
       end
+
+      scenario "changing plan after initial subscription fails" do
+        expect(Braintree::Subscription).to receive(:update).
+          and_return(double(:success? => false))
+        account.update_column(:braintree_subscription_id, "abc123")
+        visit root_url
+        click_link "Edit Account"
+        select "Extreme", :from => 'Plan'
+        click_button "Update Account"
+        expect(page).to have_content("You are changing to the 'Extreme' plan.")
+        expect(page).to have_content("This plan costs $19.95 per month.")
+        click_button "Change plan"
+        expect(page).to have_content("Something went wrong. Please try again.")
+      end
     end
   end
 

@@ -53,6 +53,9 @@ module Subscribem
         current_account.update_column(:plan_id, plan.id)
         flash[:success] = "You have switched to the '#{plan.name}' plan."
         redirect_to root_path
+      else
+        flash[:error] = "Something went wrong. Please try again."
+        render "plan"
       end
     end
 

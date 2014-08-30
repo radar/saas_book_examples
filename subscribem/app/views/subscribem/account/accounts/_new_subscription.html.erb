@@ -1,0 +1,40 @@
+
+<% if @result && @result.message %>
+  <ul class="gateway_messages">
+    <% @result.message.split("\n").each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for :customer,
+     :url => Braintree::TransparentRedirect.url,
+     :html => {:autocomplete => "off"} do |customer| -%>
+  <% tr_data = Braintree::TransparentRedirect.create_customer_data(
+     :redirect_url => subscribem.subscribe_account_url(:plan_id => params[:plan_id]),
+   ) %>
+  <%= hidden_field_tag "tr_data", tr_data %>
+  <%= customer.fields_for :credit_card do |cc| -%>
+    <p>
+      <%= cc.label :number, "Credit card number" %><br>
+      <%= cc.text_field :number %>
+    </p>
+
+    <p>
+      <%= cc.label :cardholder_name, "Name on card" %><br>
+      <%= cc.text_field :cardholder_name %>
+    </p>
+
+    <p>
+      <%= cc.label :expiration_date, "Expiration date" %><br>
+      <%= cc.text_field :expiration_date %>
+    </p>
+
+    <p>
+      <%= cc.label :cvv, "CVV" %><br>
+      <%= cc.text_field :cvv %>
+    </p>
+    <%= customer.submit "Change plan" %>
+  <% end %>
+
+<% end %>

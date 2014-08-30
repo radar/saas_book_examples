@@ -16,6 +16,9 @@ Subscribem::Engine.routes.draw do
       get "/account/subscribe",
         :to => "accounts#subscribe",
         :as => :subscribe_account
+      post "/account/confirm_plan",
+        :to => "accounts#confirm_plan",
+        :as => :confirm_plan_account
     end
   end
 

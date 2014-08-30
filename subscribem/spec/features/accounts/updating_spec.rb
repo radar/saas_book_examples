@@ -67,9 +67,12 @@ feature "Accounts" do
           :plan_id => extreme_plan.braintree_id
         }
 
+        subscription_result = double(:success? => true,
+                                   :subscription => double(:id => "abc123"))
+
         expect(Braintree::Subscription).to receive(:create).
           with(subscription_params).
-          and_return(double(:success? => true))
+          and_return(subscription_result)
 
         query_string = Rack::Utils.build_query(
           :plan_id => extreme_plan.id,
@@ -105,6 +108,7 @@ feature "Accounts" do
         click_button "Change plan"
         expect(page).to have_content("You have switched to the 'Extreme' plan.")
         expect(page.current_url).to eq(root_url)
+        expect(account.reload.braintree_subscription_id).to eq("abc123")
       end
 
       scenario "can't change account's plan with invalid credit card number" do
@@ -134,6 +138,23 @@ feature "Accounts" do
         click_button "Change plan"
         expect(page).to have_content("Invalid credit card details. Please try again.")
         expect(page).to have_content("Credit card number must be 12-19 digits")
+      end
+
+      scenario "changing plan after initial subscription" do
+        expect(Braintree::Subscription).to receive(:update).
+          with("abc123", {:plan_id => extreme_plan.braintree_id}).
+          and_return(double(:success? => true))
+        account.update_column(:braintree_subscription_id, "abc123")
+        visit root_url
+        click_link "Edit Account"
+        select "Extreme", :from => 'Plan'
+        click_button "Update Account"
+        expect(page).to have_content("You are changing to the 'Extreme' plan.")
+        expect(page).to have_content("This plan costs $19.95 per month.")
+        click_button "Change plan"
+        expect(page).to have_content("You have switched to the 'Extreme' plan.")
+        expect(page.current_url).to eq(root_url)
+        expect(account.reload.plan).to eq(extreme_plan)
       end
     end
   end

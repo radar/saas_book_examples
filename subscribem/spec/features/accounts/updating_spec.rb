@@ -57,9 +57,10 @@ feature "Accounts" do
         select "Extreme", :from => 'Plan'
         click_button "Update Account"
         expect(page).to have_content("Account updated successfully.")
-        expect(page).to have_content("You are now on the 'Extreme' plan.")
-
-        expect(account.reload.plan).to eq(extreme_plan)
+        plan_url = subscribem.plan_account_url(
+          :plan_id => extreme_plan.id,
+          :subdomain => account.subdomain)
+        expect(page.current_url).to eq(plan_url)
       end
     end
   end

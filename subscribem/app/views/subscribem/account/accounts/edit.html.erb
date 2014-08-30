@@ -1,0 +1,11 @@
+<h2>Edit Account</h2>
+
+<%= form_for(current_account, :url => account_path) do |account| %>
+  <%= account.error_messages %>
+  <p>
+    <%= account.label :name %>
+    <%= account.text_field :name %>
+  </p>
+
+  <%= account.submit "Update Account" %>
+<% end %>

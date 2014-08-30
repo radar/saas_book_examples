@@ -27,8 +27,6 @@ module Subscribem
 
     initializer "subscribem.middleware.fake_braintree_redirect" do
       if Rails.env.test?
-        require 'pry'
-        binding.pry
         require "fake_braintree_redirect"
         Rails.application.config.middleware.insert_before \
           Warden::Manager,

@@ -1,6 +1,7 @@
 require "warden"
 require "dynamic_form"
 require "houser"
+require "braintree"
 
 module Subscribem
   class Engine < ::Rails::Engine
@@ -21,6 +22,17 @@ module Subscribem
         manager.serialize_from_session do |id|
           Subscribem::User.find(id)
         end
+      end
+    end
+
+    initializer "subscribem.middleware.fake_braintree_redirect" do
+      if Rails.env.test?
+        require 'pry'
+        binding.pry
+        require "fake_braintree_redirect"
+        Rails.application.config.middleware.insert_before \
+          Warden::Manager,
+          FakeBraintreeRedirect
       end
     end
 

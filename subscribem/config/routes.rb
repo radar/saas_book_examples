@@ -13,6 +13,9 @@ Subscribem::Engine.routes.draw do
       get "/account/plan/:plan_id",
         :to => "accounts#plan",
         :as => :plan_account
+      get "/account/subscribe",
+        :to => "accounts#subscribe",
+        :as => :subscribe_account
     end
   end
 

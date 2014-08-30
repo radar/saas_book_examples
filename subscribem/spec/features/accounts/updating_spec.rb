@@ -52,6 +52,18 @@ feature "Accounts" do
       end
 
       scenario "updating an account's plan" do
+        query_string = Rack::Utils.build_query(
+          :plan_id => extreme_plan.id,
+          :http_status => 200,
+          :id => "a_fake_id",
+          :kind => "create_customer",
+          :hash => "689ee0446812eb1fdea052d45c30c7beea15053d"
+        )
+        mock_transparent_redirect_response = double(:success? => true)
+        expect(Braintree::TransparentRedirect).to receive(:confirm).
+          with(query_string).
+          and_return(mock_transparent_redirect_response)
+
         visit root_url
         click_link "Edit Account"
         select "Extreme", :from => 'Plan'
@@ -61,6 +73,16 @@ feature "Accounts" do
           :plan_id => extreme_plan.id,
           :subdomain => account.subdomain)
         expect(page.current_url).to eq(plan_url)
+        expect(page).to have_content("You are changing to the 'Extreme' plan")
+        expect(page).to have_content("This plan costs $19.95 per month.")
+        fill_in "Credit card number", with: "4111111111111111"
+        fill_in "Name on card", with: "Dummy user"
+        future_date = "#{Time.now.month + 1}/#{Time.now.year + 1}"
+        fill_in "Expiration date", with: future_date
+        fill_in "CVV", with: "123"
+        click_button "Change plan"
+        expect(page).to have_content("You have switched to the 'Extreme' plan.")
+        expect(page.current_url).to eq(root_url)
       end
     end
   end

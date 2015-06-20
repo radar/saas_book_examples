@@ -6,6 +6,5 @@ if Rails.env.test?
     domain: 'example.com'
 else
   Blorgh::Application.config.session_store :cookie_store, 
-    key: '_blorgh_session',
-    domain: 'blorghapp.com'
+    key: '_blorgh_session'
 end

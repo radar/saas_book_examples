@@ -6,10 +6,7 @@
 
   def current_user
     if user_signed_in?
-      @current_user ||= begin
-        user_id = env["warden"].user(:scope => :user)
-        Subscribem::User.find(user_id)
-      end
+      @current_user ||= env["warden"].user(:scope => :user)
     end
   end
   helper_method :current_user

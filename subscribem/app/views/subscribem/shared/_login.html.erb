@@ -2,6 +2,6 @@
   Signed in as <%= current_user.email %> 
   <% if owner? %>
     &middot;
-    <%= link_to "Edit Account", account_path %>
+    <%= link_to "Edit Account", edit_account_path %>
   <% end %>
 <% end %>

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/radar/fake_braintree_redirect.git
-  revision: 10e024564282d44f46148a7af4d451668a5bebf0
+  revision: 861bfd845c126ab2d8412a138be93ab9b98c8a1f
   branch: master
   specs:
     fake_braintree_redirect (1.0.0)
@@ -161,4 +161,4 @@ DEPENDENCIES
   subscribem!
 
 BUNDLED WITH
-   1.10.3
+   1.11.2
